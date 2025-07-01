@@ -282,7 +282,7 @@ class Sender(threading.Thread):
             # been successfully appended to the broker log, we must resend them until their final status is clear.
             # If they had been appended and we did not receive the error, then our sequence number would no longer
             # be correct which would lead to an OutOfSequenceNumberError.
-            if not self._accumulator.flush_in_progress():
+            if not self._accumulator._flush_in_progress():
                 self._accumulator.begin_flush()
 
         next_request_handler = self._transaction_manager.next_request_handler(self._accumulator.has_incomplete)
